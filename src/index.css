@@ -1,0 +1,51 @@
+:root {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  color: #d8d8d8;
+  background: #252525;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bg: #252525;
+  --surface: #3a3a3a;
+  --text: #cfcfcf;
+  --text-muted: #9f9f9f;
+  --text-strong: #f1f1f1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
