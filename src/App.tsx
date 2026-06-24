@@ -20,27 +20,27 @@ const researchAreas = ['Research area', 'Desalination', 'Optimization', 'Thermod
 const publications = [
   {
     authors: 'Author Alpha, Author Beta',
-    year: '2025',
+    year: 2025,
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
     journal: 'Journal Name, Page 12-23',
-    citations: '13 citations',
+    citations: 57,
   },
   {
     authors: 'Author Alpha, Author Beta',
-    year: '2025',
+    year: 2023,
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
     journal: 'Journal Name, Page 12-23',
-    citations: '13 citations',
+    citations: 21,
   },
   {
     authors: 'Author Alpha, Author Beta',
-    year: '2025',
+    year: 2024,
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
     journal: 'Journal Name, Page 12-23',
-    citations: '13 citations',
+    citations: 84,
   },
 ]
 
@@ -65,6 +65,15 @@ const education = [
 
 function App() {
   const [isNavCondensed, setIsNavCondensed] = useState(false)
+  const [publicationSort, setPublicationSort] = useState<'year' | 'citations'>('year')
+
+  const sortedPublications = [...publications].sort((left, right) => {
+    if (publicationSort === 'citations') {
+      return right.citations - left.citations
+    }
+
+    return right.year - left.year
+  })
 
   useEffect(() => {
     const updateNav = () => setIsNavCondensed(window.scrollY > 24)
@@ -115,11 +124,21 @@ function App() {
         <section id="publications" className="content-section" aria-labelledby="publications-heading">
           <div className="section-kicker">
             <h2 id="publications-heading">Publications</h2>
-            <span>Sort by</span>
+            <label className="sort-control" htmlFor="publication-sort">
+              <span>Sort by</span>
+              <select
+                id="publication-sort"
+                value={publicationSort}
+                onChange={(event) => setPublicationSort(event.target.value as 'year' | 'citations')}
+              >
+                <option value="year">Year</option>
+                <option value="citations">Citations</option>
+              </select>
+            </label>
           </div>
 
           <div className="publication-list">
-            {publications.map((publication, index) => (
+            {sortedPublications.map((publication, index) => (
               <article className="publication-item" key={`${publication.title}-${index}`}>
                 <div className="publication-meta">
                   <span>{publication.authors}</span>
@@ -128,7 +147,7 @@ function App() {
                 <h3>{publication.title}</h3>
                 <div className="publication-footer">
                   <span>{publication.journal}</span>
-                  <span>{publication.citations}</span>
+                  <span>{publication.citations} citations</span>
                 </div>
               </article>
             ))}
